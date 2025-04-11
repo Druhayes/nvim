@@ -1,4 +1,4 @@
---rSet <space> as the leader key
+--Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
@@ -11,7 +11,7 @@ vim.g.have_nerd_font = true
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
-
+--
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -161,7 +161,6 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -837,31 +836,40 @@ require('lazy').setup({
   --   -- require 'darkplus.nvim',
   --   vim.cmd 'colorscheme darkplus',
   -- },
-
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim', --'lunarvim/darkplus.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+  {
+    'lunarvim/darkplus.nvim',
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup { --tokyonight
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
+      require('darkplus').setup {
+        vim.cmd.colorscheme 'darkplus',
       }
-      --
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- Lua
-      -- vim.cmd [[colorscheme darkplus]],
-      vim.cmd.colorscheme 'tokyonight-night' --
     end,
   },
+
+  --   -- Change the name of the colorscheme plugin below, and then
+  --   -- change the command in the config to whatever the name of that colorscheme is.
+  --   --
+  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  --   'folke/tokyonight.nvim',
+  --   'lunarvim/darkplus.nvim',
+  --   priority = 1000, -- Make sure to load this before all the other start plugins.
+  --   config = function()
+  --     ---@diagnostic disable-next-line: missing-fields
+  --     require('darkplus').setup { --tokyonight
+  --       styles = {
+  --         comments = { italic = false }, -- Disable italics in comments
+  --       },
+  --     }
+  --     --
+  --     -- Load the colorscheme here.
+  --     -- Like many other themes, this one has different styles, and you could load
+  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  --     -- Lua
+  --     vim.cmd.colorscheme 'darkplus'
+  --     -- vim.cmd.colorscheme 'tokyonight-night' --
+  --   end,
+  -- },
   --
+  -- --
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
