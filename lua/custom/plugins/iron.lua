@@ -17,12 +17,15 @@ return {
             command = { 'zsh' },
           },
           python = {
-            command = { 'ipython', '--no-autoindent' },
+            command = { 'ipython', '--no-autoindent', '--no-confirm-exit' },
             format = common.bracketed_paste_python,
             block_deviders = { '# %%', '#%%' },
           },
           r = {
             command = { 'radian' },
+          },
+          lua = {
+            command = { 'lua' },
           },
         },
         -- set the file type of the newly created repl to ft

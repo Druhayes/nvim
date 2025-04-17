@@ -602,13 +602,31 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-        pyright = {
+        basedpyright = {
           settings = {
+            basedpyright = {
+              disableOrganizeImports = true, -- Using isort
+            },
             python = {
-              analysis = { diagnosticMode = 'off', typeCheckingMode = 'off' },
+              analysis = {
+                ignore = { '*' }, -- Using Ruff
+                typeCheckingMode = 'off', -- Using mypy
+              },
             },
           },
         },
+        -- pyright = {
+        --   settings = {
+        --     python = {
+        --       analysis = { diagnosticMode = 'off', typeCheckingMode = 'off' },
+        --     },
+        --   },
+        -- },
+        ruff = {
+          settings = {},
+        },
+
+        r_language_server = {},
 
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -678,7 +696,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>mp',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
@@ -697,7 +715,7 @@ require('lazy').setup({
           return nil
         else
           return {
-            timeout_ms = 500,
+            timeout_ms = 1000,
             lsp_format = 'fallback',
           }
         end
@@ -705,7 +723,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'black' },
+        python = { 'ruff_fix', 'ruff_organize_imports', 'ruff_format' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -831,15 +849,13 @@ require('lazy').setup({
     end,
   },
 
-  -- {
-  --   -- 'lunarvim/darplus.nvim',
-  --   -- require 'darkplus.nvim',
-  --   vim.cmd 'colorscheme darkplus',
-  -- },
   {
     'lunarvim/darkplus.nvim',
     config = function()
       require('darkplus').setup {
+        styles = {
+          comments = { italic = false },
+        },
         vim.cmd.colorscheme 'darkplus',
       }
     end,
@@ -916,7 +932,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'python', 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
