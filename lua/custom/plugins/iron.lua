@@ -17,9 +17,9 @@ return {
             command = { 'zsh' },
           },
           python = {
-            command = { 'ipython', '--no-autoindent', '--no-confirm-exit' },
+            command = { 'ipython', '--no-autoindent', '--no-confirm-exit', '--colors=Linux' },
             format = common.bracketed_paste_python,
-            block_deviders = { '# %%', '#%%' },
+            block_dividers = { '# %%', '#%%' },
           },
           r = {
             command = { 'radian' },

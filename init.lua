@@ -605,12 +605,22 @@ require('lazy').setup({
         basedpyright = {
           settings = {
             basedpyright = {
-              disableOrganizeImports = true, -- Using isort
+              analysis = {
+                typeCheckingMode = 'off', -- Using ruff
+                useLibraryCodeForTypes = true,
+                disableOrganizeImports = true, -- Using isort
+                diagnosticMode = 'workspace',
+                autoSearchPath = true,
+                inlayHints = {
+                  variableTypes = true,
+                  callArgumentNames = true,
+                  functionReturnTypes = true,
+                },
+              },
             },
             python = {
               analysis = {
-                ignore = { '*' }, -- Using Ruff
-                typeCheckingMode = 'off', -- Using mypy
+                -- ignore = { '*' }, -- Using Ruff
               },
             },
           },
@@ -766,6 +776,8 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lsp-signature-help',
     },
     config = function()
@@ -779,6 +791,10 @@ require('lazy').setup({
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
+        },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
 
