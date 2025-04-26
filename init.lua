@@ -620,24 +620,9 @@ require('lazy').setup({
                 },
               },
             },
-            -- python = {
-            --   analysis = {
-            --     -- ignore = { '*' }, -- Using Ruff
-            --   },
-            -- },
           },
         },
-        -- pyright = {
-        --   settings = {
-        --     python = {
-        --       analysis = { diagnosticMode = 'off', typeCheckingMode = 'off' },
-        --     },
-        --   },
-        -- },
-        -- ruff = {
-        --   settings = {},
-        -- },
-        --
+        -- R language server
         r_language_server = {},
 
         rust_analyzer = {},
@@ -743,7 +728,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'black' }, -- 'ruff_fix', 'ruff_organize_imports', 'ruff_format' },
+        python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
