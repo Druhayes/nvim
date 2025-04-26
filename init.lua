@@ -506,11 +506,11 @@ require('lazy').setup({
           ---@param bufnr? integer some lsp support methods only in specific files
           ---@return boolean
           local function client_supports_method(client, method, bufnr)
-            if vim.fn.has 'nvim-0.11' == 1 then
-              return client:supports_method(method, bufnr)
-            else
-              return client.supports_method(method, { bufnr = bufnr })
-            end
+            -- if vim.fn.has 'nvim-0.11' == 1 then
+            return client:supports_method(method, bufnr)
+            -- else
+            --   return client.supports_method(method, { bufnr = bufnr })
+            -- end
           end
 
           -- The following two autocommands are used to highlight references of the
@@ -606,10 +606,12 @@ require('lazy').setup({
           settings = {
             basedpyright = {
               analysis = {
+                -- disableLanguageServices = true,
                 typeCheckingMode = 'off', -- Using ruff
                 useLibraryCodeForTypes = true,
                 disableOrganizeImports = true, -- Using isort
                 diagnosticMode = 'workspace',
+                autoImportCompletions = true,
                 autoSearchPath = true,
                 inlayHints = {
                   variableTypes = true,
@@ -618,11 +620,11 @@ require('lazy').setup({
                 },
               },
             },
-            python = {
-              analysis = {
-                -- ignore = { '*' }, -- Using Ruff
-              },
-            },
+            -- python = {
+            --   analysis = {
+            --     -- ignore = { '*' }, -- Using Ruff
+            --   },
+            -- },
           },
         },
         -- pyright = {
@@ -632,10 +634,10 @@ require('lazy').setup({
         --     },
         --   },
         -- },
-        ruff = {
-          settings = {},
-        },
-
+        -- ruff = {
+        --   settings = {},
+        -- },
+        --
         r_language_server = {},
 
         rust_analyzer = {},
@@ -654,6 +656,14 @@ require('lazy').setup({
           -- capabilities = {},
           settings = {
             Lua = {
+              workspace = {
+                checkThirdParty = false,
+                -- This tells lua where all the Lua file are located
+                library = {
+                  '${3rd}/luv/library',
+                  unpack(vim.api.nvim_get_runtime_file('', true)),
+                },
+              },
               completion = {
                 callSnippet = 'Replace',
               },
@@ -733,7 +743,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'ruff_fix', 'ruff_organize_imports', 'ruff_format' },
+        python = { 'isort', 'black' }, -- 'ruff_fix', 'ruff_organize_imports', 'ruff_format' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
