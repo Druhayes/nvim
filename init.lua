@@ -602,23 +602,32 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-        basedpyright = {
-          settings = {
-            basedpyright = {
-              analysis = {
-                -- disableLanguageServices = true,
-                typeCheckingMode = 'off', -- Using ruff
-                useLibraryCodeForTypes = true,
-                disableOrganizeImports = true, -- Using isort
-                diagnosticMode = 'workspace',
-                autoImportCompletions = true,
-                autoSearchPath = true,
-                inlayHints = {
-                  variableTypes = true,
-                  callArgumentNames = true,
-                  functionReturnTypes = true,
-                },
-              },
+        -- basedpyright = {
+        --   settings = {
+        --     basedpyright = {
+        --       analysis = {
+        --         -- disableLanguageServices = true,
+        --         typeCheckingMode = 'off', -- Using ruff
+        --         useLibraryCodeForTypes = true,
+        --         disableOrganizeImports = true, -- Using isort
+        --         diagnosticMode = 'workspace',
+        --         autoImportCompletions = true,
+        --         autoSearchPath = true,
+        --         inlayHints = {
+        --           variableTypes = true,
+        --           callArgumentNames = true,
+        --           functionReturnTypes = true,
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
+        pylsp = {
+          plugins = {
+            ruff = {
+              enabled = true,
+              formatEnables = true,
+              lineLength = 79,
             },
           },
         },
@@ -859,42 +868,42 @@ require('lazy').setup({
       }
     end,
   },
-
-  {
-    'lunarvim/darkplus.nvim',
-    config = function()
-      require('darkplus').setup {
-        styles = {
-          comments = { italic = false },
-        },
-        vim.cmd.colorscheme 'darkplus',
-      }
-    end,
-  },
+  --
+  -- {
+  --   'lunarvim/darkplus.nvim',
+  --   config = function()
+  --     require('darkplus').setup {
+  --       styles = {
+  --         comments = { italic = false },
+  --       },
+  --       vim.cmd.colorscheme 'darkplus',
+  --     }
+  --   end,
+  -- },
 
   --   -- Change the name of the colorscheme plugin below, and then
   --   -- change the command in the config to whatever the name of that colorscheme is.
   --   --
   --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-  --   'folke/tokyonight.nvim',
-  --   'lunarvim/darkplus.nvim',
-  --   priority = 1000, -- Make sure to load this before all the other start plugins.
-  --   config = function()
-  --     ---@diagnostic disable-next-line: missing-fields
-  --     require('darkplus').setup { --tokyonight
-  --       styles = {
-  --         comments = { italic = false }, -- Disable italics in comments
-  --       },
-  --     }
-  --     --
-  --     -- Load the colorscheme here.
-  --     -- Like many other themes, this one has different styles, and you could load
-  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  --     -- Lua
-  --     vim.cmd.colorscheme 'darkplus'
-  --     -- vim.cmd.colorscheme 'tokyonight-night' --
-  --   end,
-  -- },
+  {
+    'folke/tokyonight.nvim', --
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    config = function()
+      ---@diagnostic disable-next-line: missing-fields
+      require('tokyonight').setup { --tokyonight
+        styles = {
+          comments = { italic = false }, -- Disable italics in comments
+        },
+      }
+      --
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      -- Lua
+      -- vim.cmd.colorscheme 'darkplus'
+      vim.cmd.colorscheme 'tokyonight-night' --
+    end,
+  },
   --
   -- --
   -- Highlight todo, notes, etc in comments
