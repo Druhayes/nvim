@@ -602,35 +602,52 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-        -- basedpyright = {
+        basedpyright = {
+          settings = {
+            basedpyright = {
+              analysis = {
+                -- disableLanguageServices = true,
+                typeCheckingMode = 'off', -- Using ruff
+                useLibraryCodeForTypes = true,
+                disableOrganizeImports = false, -- Using isort
+                diagnosticMode = 'off', -- 'workspace' if I want pyright, but using ruff
+                autoImportCompletions = false, -- Using ruff
+                autoSearchPath = true,
+                inlayHints = {
+                  variableTypes = true,
+                  callArgumentNames = true,
+                  functionReturnTypes = true,
+                },
+              },
+            },
+          },
+        },
+        -- pylsp = {
         --   settings = {
-        --     basedpyright = {
-        --       analysis = {
-        --         -- disableLanguageServices = true,
-        --         typeCheckingMode = 'off', -- Using ruff
-        --         useLibraryCodeForTypes = true,
-        --         disableOrganizeImports = true, -- Using isort
-        --         diagnosticMode = 'workspace',
-        --         autoImportCompletions = true,
-        --         autoSearchPath = true,
-        --         inlayHints = {
-        --           variableTypes = true,
-        --           callArgumentNames = true,
-        --           functionReturnTypes = true,
+        --     pylsp = {
+        --       plugins = {
+        --         ruff = {
+        --           enabled = true,
+        --           formatEnabled = true,
+        --           extendSelect = { 'I' },
+        --           format = { 'I' },
+        --           -- lineLength = 79 ,
         --         },
+        --         pylsp_mypy = { enabled = true },
+        --         mypy = { enabled = false },
+        --         yapf = { enabled = false },
+        --         mccabe = { enabled = false },
+        --         autopep8 = { enabled = false },
+        --         pylint = { enabled = false },
+        --         flake8 = { enabled = false },
+        --         pycodestyle = { enabled = false },
+        --         pyflakes = { enabled = false },
         --       },
         --     },
         --   },
         -- },
-        pylsp = {
-          plugins = {
-            ruff = {
-              enabled = true,
-              formatEnables = true,
-              lineLength = 79,
-            },
-          },
-        },
+        --
+        ruff = {},
         -- R language server
         r_language_server = {},
 
@@ -684,6 +701,10 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'ruff', -- Linting and formatting for Python
+        'basedpyright', -- Based on Pyright, but better
+        -- 'python-lsp-server', -- Python LSP
+        -- 'mypy', -- Optional static typing for Python
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -782,15 +803,13 @@ require('lazy').setup({
 
       -- (Default) Only show the documentation popup when manually triggered
       completion = { documentation = { auto_show = true } },
-      auto_trigger = {
-        -- (Default) Automatically trigger completion when typing
-        --  - 'always' (default) for all sources
-        --  - 'lsp' for LSP sources only
-        --  - 'none' to disable auto-triggering
-        --  - 'auto' to trigger on '.' and ':'
-        --  - 'auto_lsp' to trigger on '.' and ':', but only for LSP sources
-        auto_trigger = 'always',
-      },
+      -- (Default) Automatically trigger completion when typing
+      --  - 'always' (default) for all sources
+      --  - 'lsp' for LSP sources only
+      --  - 'none' to disable auto-triggering
+      --  - 'auto' to trigger on '.' and ':'
+      --  - 'auto_lsp' to trigger on '.' and ':', but only for LSP sources
+      -- auto_trigger = 'always',
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
