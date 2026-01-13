@@ -14,6 +14,7 @@ return {
   },
   {
     'olimorris/codecompanion.nvim',
+    version = 'v17.33.0',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
@@ -23,32 +24,34 @@ return {
       local codecompanion = require 'codecompanion'
       codecompanion.setup {
         adapters = {
-          ollama = function()
-            return require('codecompanion.adapters').extend('ollama', {
-              name = 'ollama',
-              schema = {
-                model = {
-                  -- Define the llama model to use here
-                  default = 'deepseek-coder-v2',
+          http = {
+            ollama = function()
+              return require('codecompanion.adapters').extend('ollama', {
+                name = 'ollama',
+                schema = {
+                  model = {
+                    -- Define the llama model to use here
+                    default = 'deepseek-coder-v2',
+                  },
+                  num_ctx = {
+                    default = 16384,
+                  },
+                  num_predict = {
+                    default = -1,
+                  },
                 },
-                num_ctx = {
-                  default = 16384,
+              })
+            end,
+            copilot = function()
+              return require('codecompanion.adapters').extend('copilot', {
+                schema = {
+                  model = {
+                    default = 'claude-sonnet-4',
+                  },
                 },
-                num_predict = {
-                  default = -1,
-                },
-              },
-            })
-          end,
-          copilot = function()
-            return require('codecompanion.adapters').extend('copilot', {
-              schema = {
-                model = {
-                  default = 'claude-sonnet-4',
-                },
-              },
-            })
-          end,
+              })
+            end,
+          },
         },
         strategies = {
           chat = {
