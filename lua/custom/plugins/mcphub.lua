@@ -24,6 +24,15 @@ return {
       ---Chat-plugin related options-----------------
       auto_approve = false, -- Auto approve mcp tool calls
       auto_toggle_mcp_servers = true, -- Let LLMs start and stop MCP servers automatically
+
+      -- Memory configuration with repo context
+      memory = {
+        enabled = true,
+        persist = true,
+        auto_summarize = true,
+        -- Repo-specific memory settings
+      },
+
       extensions = {
         avante = {
           make_slash_commands = true, -- make /slash commands from MCP server prompts

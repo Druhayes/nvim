@@ -14,11 +14,24 @@ return {
   },
   {
     'olimorris/codecompanion.nvim',
-    version = 'v17.33.0',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
       'j-hui/fidget.nvim',
+      {
+        'saghen/blink.cmp',
+        lazy = false,
+        version = '*',
+        opts = {
+          keymap = {
+            preset = 'default',
+          },
+          cmdline = { sources = { 'cmdline' } },
+          sources = {
+            default = { 'lsp', 'path', 'buffer', 'codecompanion' },
+          },
+        },
+      },
     },
     config = function()
       local codecompanion = require 'codecompanion'
@@ -46,22 +59,38 @@ return {
               return require('codecompanion.adapters').extend('copilot', {
                 schema = {
                   model = {
-                    default = 'claude-sonnet-4',
+                    default = 'claude-sonnet-4.5',
                   },
                 },
               })
             end,
           },
         },
-        strategies = {
+        interactions = {
           chat = {
             adapter = 'copilot',
           },
           inline = {
             adapter = 'copilot',
           },
-          agent = {
-            adapter = 'copilot',
+        },
+        -- Memory management tool for MCPHub
+        memory = {
+          opts = {
+            chat = { enabled = true },
+            inline = { enabled = true },
+          },
+          claude = {
+            description = 'Claude-specific memory management',
+            files = {
+              'CLAUDE.md',
+            },
+          },
+          architecture = {
+            description = 'Repository architecture memory management',
+            files = {
+              'ARCHITECTURE.md',
+            },
           },
         },
         extensions = {
