@@ -74,23 +74,19 @@ return {
             adapter = 'copilot',
           },
         },
-        -- Memory management tool for MCPHub
-        memory = {
-          opts = {
-            chat = { enabled = true },
-            inline = { enabled = true },
-          },
-          claude = {
-            description = 'Claude-specific memory management',
-            files = {
-              'CLAUDE.md',
-            },
-          },
+        rules = {
           architecture = {
             description = 'Repository architecture memory management',
             files = {
               'ARCHITECTURE.md',
             },
+          },
+        },
+        -- Memory management tool for MCPHub
+        memory = {
+          opts = {
+            chat = { enabled = true },
+            inline = { enabled = true },
           },
         },
         extensions = {
