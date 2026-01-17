@@ -82,13 +82,13 @@ git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HO
 
 If you're using `cmd.exe`:
 
-```
+```bash
 git clone https://github.com/nvim-lua/kickstart.nvim.git "%localappdata%\nvim"
 ```
 
 If you're using `powershell.exe`
 
-```
+```bash
 git clone https://github.com/nvim-lua/kickstart.nvim.git "${env:LOCALAPPDATA}\nvim"
 ```
 
@@ -177,19 +177,19 @@ the easiest way is to use choco:
 1. install [chocolatey](https://chocolatey.org/install)
 either follow the instructions on the page or use winget,
 run in cmd as **admin**:
-```
+```bash
 winget install --accept-source-agreements chocolatey.chocolatey
 ```
 
 2. install all requirements using choco, exit the previous cmd and
 open a new one so that choco path is set, and run in cmd as **admin**:
-```
+```bash
 choco install -y neovim git ripgrep wget fd unzip gzip mingw make
 ```
 </details>
 <details><summary>WSL (Windows Subsystem for Linux)</summary>
 
-```
+```bash
 wsl --install
 wsl
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
@@ -201,7 +201,7 @@ sudo apt install make gcc ripgrep unzip git xclip neovim
 #### Linux Install
 <details><summary>Ubuntu Install Steps</summary>
 
-```
+```bash
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 sudo apt update
 sudo apt install make gcc ripgrep unzip git xclip neovim
@@ -209,7 +209,7 @@ sudo apt install make gcc ripgrep unzip git xclip neovim
 </details>
 <details><summary>Debian Install Steps</summary>
 
-```
+```bash
 sudo apt update
 sudo apt install make gcc ripgrep unzip git xclip curl
 
@@ -224,7 +224,7 @@ sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 sudo ln -sf /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/
 ```
 </details>
-<details><summary>Fedora Install Steps</summary>
+details><summary>Fedora Install Steps</summary>
 
 ```
 sudo dnf install -y gcc make git ripgrep fd-find unzip neovim
@@ -233,8 +233,7 @@ sudo dnf install -y gcc make git ripgrep fd-find unzip neovim
 
 <details><summary>Arch Install Steps</summary>
 
-```
+```bash
 sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
 ```
 </details>
-

@@ -82,13 +82,6 @@ return {
             },
           },
         },
-        -- Memory management tool for MCPHub
-        memory = {
-          opts = {
-            chat = { enabled = true },
-            inline = { enabled = true },
-          },
-        },
         extensions = {
           mcphub = {
             callback = 'mcphub.extensions.codecompanion',
@@ -140,9 +133,33 @@ return {
   },
   {
     'MeanderingProgrammer/render-markdown.nvim',
-    ft = { 'markdown', 'codecompanion' },
+    version = '^8.0',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons', 'nvim-mini/mini.nvim' },
+    ft = { 'codecompanion' },
+    config = function()
+      require('render-markdown').setup {
+        file_types = { 'codecompanion' },
+        latex = {
+          enabled = true,
+          converter = 'none',
+          highlight = 'RenderMarkdownMath',
+          position = 'above',
+          top_pad = 0,
+          bottom_pad = 0,
+        },
+        log_level = 'debug', -- Add this line
+        overrides = {
+          filetype = {
+            markdown = {
+              latex = {
+                enabled = true,
+              },
+            },
+          },
+        },
+      }
+    end,
   },
-
   --  Keymaps
   vim.keymap.set({ 'n', 'v' }, '<C-a>', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true }),
   vim.keymap.set({ 'n', 'v' }, '<LocalLeader>a', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true }),
