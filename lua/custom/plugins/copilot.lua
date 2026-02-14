@@ -44,7 +44,7 @@ return {
                 schema = {
                   model = {
                     -- Define the llama model to use here
-                    default = 'deepseek-coder-v2',
+                    default = 'gpt-oss:20b',
                   },
                   num_ctx = {
                     default = 16384,

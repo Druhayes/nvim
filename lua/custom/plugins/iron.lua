@@ -23,6 +23,7 @@ return {
           },
           r = {
             command = { 'radian' },
+            format = common.bracketed_paste,
           },
           lua = {
             command = { 'lua' },
